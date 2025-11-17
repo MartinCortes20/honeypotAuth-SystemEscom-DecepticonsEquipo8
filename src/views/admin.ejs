@@ -13,6 +13,7 @@
         th { background-color: #f8f9fa; }
         .admin-badge { background: #dc3545; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
         .user-badge { background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+        .success { background: #d1ecf1; color: #0c5460; padding: 12px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #bee5eb; }
     </style>
 </head>
 <body>
@@ -20,6 +21,10 @@
         <h1>Panel de Administración</h1>
         <a href="/logout" class="logout">Cerrar Sesión</a>
     </div>
+    
+    <% if (success) { %>
+        <div class="success"> <%= success %></div>
+    <% } %>
     
     <h2>Usuarios Registrados</h2>
     

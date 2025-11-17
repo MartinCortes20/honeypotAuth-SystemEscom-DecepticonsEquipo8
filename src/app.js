@@ -31,6 +31,19 @@ app.use(session({
   }
 }));
 
+//  MIDDLEWARE NUEVO: Mensajes flash para UX
+app.use((req, res, next) => {
+  // Pasar mensajes de éxito/error a todas las vistas
+  res.locals.success = req.session.success;
+  res.locals.error = req.session.error;
+  
+  // Limpiar después de usarlos
+  delete req.session.success;
+  delete req.session.error;
+  
+  next();
+});
+
 // Configurar EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -49,5 +62,5 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor ejecutándose en http://localhost:${PORT}`);
+  console.log(`Servidor Decepticon ejecutándose en http://localhost:${PORT}`);
 });

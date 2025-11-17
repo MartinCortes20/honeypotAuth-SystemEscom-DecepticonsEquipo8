@@ -3,14 +3,26 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
+// FUNCIONES QUE FALTAN - AGREGA ESTAS
 export function showLogin(req, res) {
-  res.render("login", { error: null });
+  res.render("login", { error: null, success: null });
 }
 
 export function showRegister(req, res) {
-  res.render("register", { error: null });
+  res.render("register", { error: null, success: null });
 }
 
+export function userPage(req, res) {
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+  res.render("user", { 
+    user: { email: req.session.userEmail },
+    success: null 
+  });
+}
+
+// TUS FUNCIONES EXISTENTES
 export async function registerUser(req, res) {
   try {
     const { email, password } = req.body;
@@ -42,6 +54,11 @@ export async function registerUser(req, res) {
     req.session.userId = user.id;
     req.session.userRole = user.role;
     req.session.userEmail = user.email;
+
+    //  MENSAJE DE ÉXITO
+    req.session.success = role === 'admin' 
+      ? '¡Registro exitoso! Eres el primer usuario (Administrador).' 
+      : '¡Registro exitoso! Bienvenido al sistema.';
 
     if (user.role === "admin") {
       res.redirect("/admin");
@@ -78,6 +95,9 @@ export async function loginUser(req, res) {
     req.session.userRole = user.role;
     req.session.userEmail = user.email;
 
+    // MENSAJE DE ÉXITO EN LOGIN
+    req.session.success = `¡Bienvenido de nuevo, ${user.email}!`;
+
     if (user.role === "admin") {
       res.redirect("/admin");
     } else {
@@ -89,14 +109,10 @@ export async function loginUser(req, res) {
   }
 }
 
-export function userPage(req, res) {
-  if (!req.session.userId) {
-    return res.redirect("/login");
-  }
-  res.render("user", { user: { email: req.session.userEmail } });
-}
-
 export function logoutUser(req, res) {
+  //  MENSAJE DE ÉXITO EN LOGOUT
+  req.session.success = "Sesión cerrada correctamente";
+  
   req.session.destroy((err) => {
     if (err) {
       console.error("Error al cerrar sesión:", err);
