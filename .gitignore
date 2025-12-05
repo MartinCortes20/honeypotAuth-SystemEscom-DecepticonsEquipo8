@@ -1,0 +1,17 @@
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+
+# Archivos sensibles
+secrets.ini
+config.ini
+credentials.json
+serviceAccountKey.json
+
+# Backup files
+*.bak
+*.backup
