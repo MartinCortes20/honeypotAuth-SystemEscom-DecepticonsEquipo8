@@ -15,3 +15,8 @@ serviceAccountKey.json
 # Backup files
 *.bak
 *.backup
+
+# Archivos de entorno locales
+.env
+.env.local
+.env.*.local
