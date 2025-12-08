@@ -3,48 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Honeypot System</title>
+    <title>Registro - Honeypot Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; max-width: 400px; margin: 100px auto; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input { width: 100%; padding: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
-        .error { color: red; margin-bottom: 15px; }
-        .success { background: #d4edda; color: #155724; padding: 12px; border-radius: 5px; margin-bottom: 15px; }
-        .links { text-align: center; margin-top: 15px; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --border-radius: 10px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* Header */
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        .register-header h1 {
+            font-size: 24px;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .register-header p {
+            color: var(--gray-600);
+            font-size: 15px;
+        }
+
+        /* Card */
+        .register-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        /* Alertas */
+        .alert {
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert.success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .alert i {
+            font-size: 18px;
+        }
+
+        /* Formulario */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: var(--primary);
+            width: 16px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        .password-toggle:hover {
+            color: var(--gray-600);
+        }
+
+        /* Validación de contraseña */
+        .password-match {
+            font-size: 13px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .password-match.valid {
+            color: var(--success);
+        }
+
+        .password-match.invalid {
+            color: var(--danger);
+        }
+
+        /* Checkbox términos */
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 3px;
+        }
+
+        .terms-checkbox label {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+
+        .terms-checkbox a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        /* Botón */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn:disabled {
+            background: var(--gray-400);
+            cursor: not-allowed;
+        }
+
+        /* Enlaces */
+        .register-links {
+            margin-top: 25px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .register-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .register-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .register-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray-600);
+            font-size: 13px;
+        }
+
+        /* Honeypot */
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .register-card {
+                padding: 25px 20px;
+            }
+            
+            .logo {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .register-header h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h2>Registro de Usuario</h2>
-    
-    <% if (success) { %>
-        <div class="success"><%= success %></div>
-    <% } %>
-    
-    <% if (error) { %>
-        <div class="error"> <%= error %></div>
-    <% } %>
-
-    <form method="POST" action="/register">
-        <div class="form-group">
-            <label>Email:</label>
-            <input type="email" name="email" required>
-        </div>
-        
-        <div class="form-group">
-            <label>Contraseña:</label>
-            <input type="password" name="password" required minlength="6">
+    <div class="register-container">
+        <!-- Header -->
+        <div class="register-header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Crear Cuenta</h1>
+            <p>Regístrate en Honeypot Security</p>
         </div>
 
-        <!-- Campo Honeypot (oculto para usuarios humanos) -->
-        <input type="text" name="hiddenField" style="display: none !important;">
+        <!-- Register Card -->
+        <div class="register-card">
+            <!-- Alertas -->
+            <% if (success) { %>
+                <div class="alert success">
+                    <i class="fas fa-check-circle"></i>
+                    <span><%= success %></span>
+                </div>
+            <% } %>
+            
+            <% if (error) { %>
+                <div class="alert error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span><%= error %></span>
+                </div>
+            <% } %>
 
-        <button type="submit">Registrar</button>
-    </form>
+            <!-- Formulario -->
+            <form method="POST" action="/register" id="registerForm">
+                <!-- Honeypot -->
+                <input type="text" name="hiddenField" class="honeypot" autocomplete="off">
 
-    <div class="links">
-        <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i> Correo electrónico
+                    </label>
+                    <input type="email" name="email" class="form-control" required 
+                           placeholder="usuario@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-lock"></i> Contraseña
+                    </label>
+                    <div class="password-field">
+                        <input type="password" name="password" id="password" class="form-control" required 
+                               minlength="8" placeholder="Mínimo 8 caracteres">
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-lock"></i> Confirmar contraseña
+                    </label>
+                    <div class="password-field">
+                        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" required 
+                               placeholder="Repite tu contraseña">
+                        <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div id="passwordMatch" class="password-match"></div>
+                </div>
+
+                <div class="terms-checkbox">
+                    <input type="checkbox" name="terms" id="terms" required>
+                    <label for="terms">
+                        Acepto los <a href="#" onclick="return showTerms()">términos y condiciones</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    Crear Cuenta
+                </button>
+            </form>
+
+            <!-- Enlaces -->
+            <div class="register-links">
+                <a href="/login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    ¿Ya tienes cuenta? Inicia sesión
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="register-footer">
+            <p>Sistema de seguridad protegido con honeypot</p>
+        </div>
     </div>
+
+    <script>
+        // Mostrar/ocultar contraseña
+        function setupPasswordToggle(buttonId, inputId) {
+            const button = document.getElementById(buttonId);
+            const input = document.getElementById(inputId);
+            
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        }
+
+        setupPasswordToggle('togglePassword', 'password');
+        setupPasswordToggle('toggleConfirmPassword', 'confirmPassword');
+
+        // Validar coincidencia de contraseñas
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const matchDiv = document.getElementById('passwordMatch');
+
+        function validatePasswords() {
+            const pass = password.value;
+            const confirm = confirmPassword.value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (confirm === '') {
+                matchDiv.textContent = '';
+                matchDiv.className = 'password-match';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            if (pass === confirm) {
+                matchDiv.innerHTML = '<i class="fas fa-check-circle"></i> Las contraseñas coinciden';
+                matchDiv.className = 'password-match valid';
+                submitBtn.disabled = false;
+            } else {
+                matchDiv.innerHTML = '<i class="fas fa-times-circle"></i> Las contraseñas no coinciden';
+                matchDiv.className = 'password-match invalid';
+                submitBtn.disabled = true;
+            }
+        }
+
+        password.addEventListener('input', validatePasswords);
+        confirmPassword.addEventListener('input', validatePasswords);
+
+        // Validar términos
+        const terms = document.getElementById('terms');
+        const submitBtn = document.getElementById('submitBtn');
+
+        terms.addEventListener('change', function() {
+            submitBtn.disabled = !this.checked;
+        });
+
+        // Validación del formulario
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const honeypot = document.querySelector('[name="hiddenField"]').value;
+            
+            // Detectar honeypot
+            if (honeypot) {
+                e.preventDefault();
+                alert('Actividad sospechosa detectada. Acceso bloqueado.');
+                return;
+            }
+
+            // Validar términos
+            if (!terms.checked) {
+                e.preventDefault();
+                alert('Debes aceptar los términos y condiciones.');
+                return;
+            }
+
+            // Validar contraseñas
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                alert('Las contraseñas no coinciden.');
+                return;
+            }
+
+            // Deshabilitar botón durante el envío
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Creando cuenta...';
+        });
+
+        // Auto-ocultar alertas
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    alert.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        alert.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            });
+
+            // Auto-focus en email
+            const email = document.querySelector('input[name="email"]');
+            if (email) setTimeout(() => email.focus(), 300);
+        });
+
+        // Mostrar términos
+        function showTerms() {
+            alert('Términos y condiciones:\n\n1. Uso autorizado del sistema\n2. Protección de datos personales\n3. Responsabilidades del usuario\n\nAcepta para continuar con el registro.');
+            return false;
+        }
+    </script>
 </body>
 </html>
