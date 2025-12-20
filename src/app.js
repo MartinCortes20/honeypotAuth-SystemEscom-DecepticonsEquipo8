@@ -5,62 +5,64 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Fix para __dirname en ES modules
+// Configurar __dirname para ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Cargar variables de entorno
 dotenv.config();
 
 const app = express();
 
-// Middleware de seguridad
+// Seguridad básica con helmet
 app.use(helmet());
 
-// Parsear formularios
+// Procesar datos de formularios
 app.use(express.urlencoded({ extended: true }));
 
-// Configurar sesiones
+// Configurar sesiones de usuario
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
+  secret: process.env.SESSION_SECRET,  // Clave desde .env
+  resave: false,                       // No guardar sesión si no cambia
+  saveUninitialized: false,            // No crear sesiones vacías
   cookie: { 
-    httpOnly: true, 
-    sameSite: "strict",
-    secure: false // Cambiar a true en producción con HTTPS
+    httpOnly: true,                    // Cookie no accesible desde JS
+    sameSite: "strict",                // Protección CSRF
+    secure: false                      // true solo con HTTPS
   }
 }));
 
-//  MIDDLEWARE NUEVO: Mensajes flash para UX
+// Middleware para mensajes temporales (flash)
 app.use((req, res, next) => {
-  // Pasar mensajes de éxito/error a todas las vistas
+  // Pasar mensajes a vistas
   res.locals.success = req.session.success;
   res.locals.error = req.session.error;
   
-  // Limpiar después de usarlos
+  // Limpiar mensajes después de usarlos
   delete req.session.success;
   delete req.session.error;
   
   next();
 });
 
-// Configurar EJS
+// Configurar motor de plantillas EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Rutas
-import authRoutes from "./routes/authRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+// Importar y usar rutas
+import authRoutes from "./routes/authRoutes.js";    // Rutas de autenticación
+import adminRoutes from "./routes/adminRoutes.js";  // Rutas de administración
 
-app.use("/", authRoutes);
-app.use("/admin", adminRoutes);
+app.use("/", authRoutes);      // Rutas principales
+app.use("/admin", adminRoutes); // Rutas con prefijo /admin
 
-// Ruta principal
+// Redirigir raíz a login
 app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
+// Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor Decepticon ejecutándose en http://localhost:${PORT}`);
+  console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });

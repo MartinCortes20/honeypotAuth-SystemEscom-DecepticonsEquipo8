@@ -1,0 +1,27 @@
+{
+  "name": "honeypot-project",               // Nombre del proyecto
+  "version": "1.0.0",                       // Versión inicial
+  "description": "Sistema de autenticación con honeypot", // Descripción breve
+  "main": "src/app.js",                     // Archivo principal
+  "type": "module",                         // Usa módulos ES6
+  "scripts": {
+    "start": "node src/app.js",             // Inicia la aplicación
+    "dev": "node --watch src/app.js"        // Modo desarrollo con recarga
+  },
+  "keywords": ["honeypot", "security", "authentication"], // Palabras clave
+  "author": "",                             // Autor del proyecto
+  "license": "ISC",                         // Licencia de uso
+  "dependencies": {
+    "@prisma/client": "^5.0.0",             // ORM para base de datos
+    "bcrypt": "^5.1.0",                     // Cifrado de contraseñas
+    "dotenv": "^16.3.0",                    // Variables de entorno
+    "ejs": "^3.1.9",                        // Motor de plantillas
+    "express": "^4.18.0",                   // Framework web
+    "express-session": "^1.17.0",           // Manejo de sesiones
+    "helmet": "^7.0.0",                     // Seguridad HTTP
+    "path": "^0.12.7"                       // Manejo de rutas
+  },
+  "devDependencies": {
+    "prisma": "^5.0.0"                      // Herramientas de desarrollo BD
+  }
+}

@@ -389,7 +389,7 @@ main() {
     verificar_seguridad
     
     # 7. Resultado final
-    header "✅ CONFIGURACION COMPLETADA"
+    header "CONFIGURACION COMPLETADA"
     
     echo ""
     success "¡Proyecto configurado exitosamente!"
@@ -408,7 +408,6 @@ main() {
     echo "  3. Ejecuta: npx prisma migrate dev"
     echo ""
     echo "Soporte: Equipo Decepticons - ESCOM"
-    echo "=========================================="
     echo ""
 }
 
