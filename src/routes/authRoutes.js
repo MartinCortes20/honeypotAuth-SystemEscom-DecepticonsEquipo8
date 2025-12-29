@@ -8,7 +8,9 @@ import {
   registerUser,   // Procesa registro nuevo usuario
   loginUser,      // Procesa inicio de sesión
   logoutUser,     // Cierra sesión usuario
-  userPage        // Muestra página usuario autenticado
+  userPage,        // Muestra página usuario autenticado
+  showProfile  // Agrega esta importación
+
 } from "../controllers/authController.js";
 
 // Importar middleware de protección honeypot
@@ -22,6 +24,8 @@ router.get("/login", showLogin);          // GET /login → Formulario login
 router.get("/register", showRegister);    // GET /register → Formulario registro
 router.get("/user", userPage);            // GET /user → Página usuario (protegida)
 router.get("/logout", logoutUser);        // GET /logout → Cerrar sesión
+router.get("/profile", showProfile);  // Agrega esta nueva ruta
+
 
 // RUTAS POST (procesar datos)
 router.post("/login", honeypotProtection, loginUser);     // POST /login → Verifica credenciales
