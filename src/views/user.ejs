@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -346,21 +347,21 @@
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .user-info {
                 flex-direction: column;
                 width: 100%;
             }
-            
+
             .user-badge {
                 width: 100%;
                 justify-content: center;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .actions-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -370,23 +371,24 @@
             .dashboard-container {
                 padding: 10px;
             }
-            
+
             .dashboard-header,
             .actions-section,
             .security-section {
                 padding: 20px;
             }
-            
+
             .actions-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .header-left h1 {
                 font-size: 22px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Header -->
@@ -398,7 +400,7 @@
                 </h1>
                 <p>Bienvenido a tu panel de seguridad</p>
             </div>
-            
+
             <div class="user-info">
                 <div class="user-badge">
                     <div class="user-avatar" id="userAvatar">
@@ -420,118 +422,120 @@
         <% if (success) { %>
             <div class="alert" id="successAlert">
                 <i class="fas fa-check-circle"></i>
-                <span><%= success %></span>
+                <span>
+                    <%= success %>
+                </span>
                 <button class="close-alert" onclick="closeAlert()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-        <% } %>
+            <% } %>
 
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <i class="fas fa-shield-alt stat-icon"></i>
-                <div class="stat-content">
-                    <h3>100%</h3>
-                    <p>Protección Activa</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-bell stat-icon"></i>
-                <div class="stat-content">
-                    <h3>0</h3>
-                    <p>Alertas de Seguridad</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-clock stat-icon"></i>
-                <div class="stat-content">
-                    <h3>24/7</h3>
-                    <p>Monitoreo</p>
-                </div>
-            </div>
-        </div>
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-shield-alt stat-icon"></i>
+                        <div class="stat-content">
+                            <h3>100%</h3>
+                            <p>Protección Activa</p>
+                        </div>
+                    </div>
 
-        <!-- Quick Actions -->
-        <section class="actions-section">
-            <div class="section-header">
-                <h2>
-                    <i class="fas fa-bolt"></i>
-                    Acciones Rápidas
-                </h2>
-                <p>Accede a las funciones principales</p>
-            </div>
-            
-            <div class="actions-grid">
-                <button class="action-btn" onclick="showComingSoon('Perfil')">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Mi Perfil</span>
-                </button>
-                
-                <button class="action-btn" onclick="showComingSoon('Seguridad')">
-                    <i class="fas fa-lock"></i>
-                    <span>Seguridad</span>
-                </button>
-                
-                <button class="action-btn" onclick="showComingSoon('Actividad')">
-                    <i class="fas fa-history"></i>
-                    <span>Actividad</span>
-                </button>
-                
-                <button class="action-btn" onclick="showComingSoon('Soporte')">
-                    <i class="fas fa-headset"></i>
-                    <span>Soporte</span>
-                </button>
-            </div>
-        </section>
+                    <div class="stat-card">
+                        <i class="fas fa-bell stat-icon"></i>
+                        <div class="stat-content">
+                            <h3>0</h3>
+                            <p>Alertas de Seguridad</p>
+                        </div>
+                    </div>
 
-        <!-- Security Status -->
-        <section class="security-section">
-            <div class="section-header">
-                <h2>
-                    <i class="fas fa-shield-alt"></i>
-                    Estado de Seguridad
-                </h2>
-                <p>Estado actual de tu protección</p>
-            </div>
-            
-            <div class="security-status">
-                <i class="fas fa-check-circle"></i>
-                <div class="security-info">
-                    <h3>Sistema Protegido</h3>
-                    <p>Tu cuenta está segura con protección Honeypot activa</p>
+                    <div class="stat-card">
+                        <i class="fas fa-clock stat-icon"></i>
+                        <div class="stat-content">
+                            <h3>24/7</h3>
+                            <p>Monitoreo</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Footer -->
-        <footer class="dashboard-footer">
-            <p>
-                © 2024 Honeypot Security | 
-                <span class="security-badge">
-                    <i class="fas fa-shield-alt"></i>
-                    Sistema Seguro
-                </span>
-            </p>
-            <p style="margin-top: 10px; font-size: 13px; color: var(--gray-400);">
-                Último acceso: <%= new Date().toLocaleString('es-MX') %>
-            </p>
-        </footer>
+                <!-- Quick Actions -->
+                <section class="actions-section">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-bolt"></i>
+                            Acciones Rápidas
+                        </h2>
+                        <p>Accede a las funciones principales</p>
+                    </div>
+
+                    <div class="actions-grid">
+                        <a href="/profile" class="action-btn">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Mi Perfil</span>
+                        </a>
+
+                        <button class="action-btn" onclick="showComingSoon('Seguridad')">
+                            <i class="fas fa-lock"></i>
+                            <span>Seguridad</span>
+                        </button>
+
+                        <button class="action-btn" onclick="showComingSoon('Actividad')">
+                            <i class="fas fa-history"></i>
+                            <span>Actividad</span>
+                        </button>
+
+                        <button class="action-btn" onclick="showComingSoon('Soporte')">
+                            <i class="fas fa-headset"></i>
+                            <span>Soporte</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Security Status -->
+                <section class="security-section">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-shield-alt"></i>
+                            Estado de Seguridad
+                        </h2>
+                        <p>Estado actual de tu protección</p>
+                    </div>
+
+                    <div class="security-status">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="security-info">
+                            <h3>Sistema Protegido</h3>
+                            <p>Tu cuenta está segura con protección Honeypot activa</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="dashboard-footer">
+                    <p>
+                        © 2024 Honeypot Security |
+                        <span class="security-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            Sistema Seguro
+                        </span>
+                    </p>
+                    <p style="margin-top: 10px; font-size: 13px; color: var(--gray-400);">
+                        Último acceso: <%= new Date().toLocaleString('es-MX') %>
+                    </p>
+                </footer>
     </div>
 
     <script>
         // Initialize user info
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const userName = '<%= user ? user.name : "Usuario" %>' || 'Usuario';
             const userEmail = '<%= user ? user.email : "" %>';
             const userRole = '<%= user ? user.role : "Usuario" %>' || 'Usuario';
-            
+
             // Set user info
             document.getElementById('userName').textContent = userName;
             document.getElementById('userRole').textContent = userRole;
-            
+
             // Create avatar initials
             const initials = userName.split(' ')
                 .map(n => n[0])
@@ -539,7 +543,7 @@
                 .toUpperCase()
                 .substring(0, 2);
             document.getElementById('userAvatar').textContent = initials;
-            
+
             // Auto-close alert
             const alert = document.getElementById('successAlert');
             if (alert) {
@@ -551,11 +555,11 @@
                     }, 500);
                 }, 5000);
             }
-            
+
             // Update last access time
             updateLastAccessTime();
         });
-        
+
         // Close alert
         function closeAlert() {
             const alert = document.getElementById('successAlert');
@@ -566,12 +570,16 @@
                 }, 300);
             }
         }
-        
+
         // Show coming soon message
         function showComingSoon(feature) {
-            alert(`${feature} - Esta funcionalidad está en desarrollo.\n\nPróximamente disponible.`);
+            if (feature === 'Perfil') {
+                window.location.href = '/profile';
+            } else {
+                alert(`${feature} - Esta funcionalidad está en desarrollo.\n\nPróximamente disponible.`);
+            }
         }
-        
+
         // Update last access time
         function updateLastAccessTime() {
             const now = new Date();
@@ -580,13 +588,13 @@
                 minute: '2-digit'
             });
             const dateString = now.toLocaleDateString('es-MX');
-            
+
             const footer = document.querySelector('.dashboard-footer p:last-child');
             if (footer) {
                 footer.innerHTML = `Último acceso: Hoy, ${timeString}`;
             }
         }
-        
+
         // Simulate real-time updates
         setInterval(() => {
             const protectionCard = document.querySelector('.stat-card:nth-child(1) h3');
@@ -600,4 +608,5 @@
         }, 30000);
     </script>
 </body>
+
 </html>
