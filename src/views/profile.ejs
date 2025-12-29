@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Honeypot Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --border-radius: 10px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--gray-800);
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header de perfil */
+        .profile-header {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--gray-800);
+        }
+
+        .profile-info .user-role {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .profile-info .user-email {
+            color: var(--gray-600);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Secciones del perfil */
+        .profile-sections {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .profile-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .section-title h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        /* Información personal */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            padding: 10px 0;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: var(--gray-800);
+            font-weight: 500;
+        }
+
+        /* Botones de acción */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-800);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-600);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            transition: all 0.2s;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background: var(--gray-50);
+            color: var(--gray-800);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-top {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 10px;
+            }
+            
+            .profile-header,
+            .profile-section {
+                padding: 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Header -->
+        <header class="profile-header">
+            <div class="profile-top">
+                <div class="profile-avatar-large" id="profileAvatar">
+                    <!-- Iniciales del usuario -->
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileName"><%= user.name %></h1>
+                    <div class="user-role"><%= user.role %></div>
+                    <div class="user-email">
+                        <i class="fas fa-envelope"></i>
+                        <span><%= user.email %></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="/user" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al Dashboard
+                </a>
+                <button class="btn btn-primary" onclick="editProfile()">
+                    <i class="fas fa-edit"></i>
+                    Editar Perfil
+                </button>
+                <a href="/logout" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
+                </a>
+            </div>
+        </header>
+
+        <!-- Información Personal -->
+        <div class="profile-sections">
+            <div class="profile-section">
+                <div class="section-title">
+                    <i class="fas fa-user"></i>
+                    <h2>Información Personal</h2>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Nombre Completo</div>
+                        <div class="info-value" id="userFullName"><%= user.name %></div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">Correo Electrónico</div>
+                        <div class="info-value"><%= user.email %></div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">Rol de Usuario</div>
+                        <div class="info-value"><%= user.role %></div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">Fecha de Registro</div>
+                        <div class="info-value">
+                            <%= user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-MX', {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            }) : 'No disponible' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seguridad -->
+            <div class="profile-section">
+                <div class="section-title">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>Seguridad</h2>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Estado de la Cuenta</div>
+                        <div class="info-value" style="color: var(--success);">
+                            <i class="fas fa-check-circle"></i> Activa
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">Último Acceso</div>
+                        <div class="info-value">
+                            <%= new Date().toLocaleString('es-MX', {
+                                dateStyle: 'medium',
+                                timeStyle: 'short'
+                            }) %>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">Protección Honeypot</div>
+                        <div class="info-value" style="color: var(--success);">
+                            <i class="fas fa-check-circle"></i> Activa
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para volver -->
+        <a href="/user" class="back-btn">
+            <i class="fas fa-home"></i>
+            Volver al Panel Principal
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generar iniciales para el avatar
+            const userName = '<%= user.name %>';
+            const initials = userName.split(' ')
+                .map(n => n[0])
+                .join('')
+                .toUpperCase()
+                .substring(0, 2);
+            
+            document.getElementById('profileAvatar').textContent = initials;
+            
+            // Poner el nombre completo en el título
+            document.getElementById('profileName').textContent = userName;
+            document.getElementById('userFullName').textContent = userName;
+        });
+        
+        // Función para editar perfil (puedes implementar esto después)
+        function editProfile() {
+            alert('Funcionalidad de edición en desarrollo.\n\nPróximamente podrás modificar tu información personal.');
+            // window.location.href = '/profile/edit';
+        }
+    </script>
+</body>
+</html>
